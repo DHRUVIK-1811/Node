@@ -24,7 +24,19 @@ insert into students values
 
 select * from students;
 
-describe students;
+describe students;   & desc students;
 
 
 ---> source d:\Skillqoud\Node\SQL\data.sql
+
+-----------------------------------------------------------------------
+
+retrive/select alldataof table
+-->select * from <table-name>
+
+retrive/select col,col of tablename
+-->select col1,col2 from <table-name>
+
+-->select *,name from client_master;
+
+
