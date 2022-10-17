@@ -215,9 +215,70 @@
 
 
 
+-- ******************************************** Date : 14-10-2022 *******************************************
+
+-->Order By
+    -- by default assending.
+
+
+    -- select * from sales_order_details order by productrate;
+ 
+    -- select * from sales_order_details order by productrate desc;
+
+
+--> Distinct
+    -- no repeat data in coluumn.
+
+    -- select distinct orderno from sales_order_details;
+
+    --select distinct orderno,productno from sales_order_details;
 
 
 
+--> Limit 
+
+    -- select * from sales_order_details limit 5;
 
 
+
+--> In
+
+    -- select * from sales_order_details where qtydisp in (4);
+
+
+--> Not In 
+
+     -- select * from sales_order_details where qtydisp not in (4);
+
+
+--> Like
+
+    --last charater to starting:
+
+        -- select * from client_master where name like '%a';
+
+    
+    --First charater to starting:
+
+        -- select * from client_master where name like 'r%';
+
+    
+    --last second charater to starting:
+
+        -- select * from client_master where name like '%n_';
+
+
+    --second charater to starting:
+
+        -- select * from client_master where name like '_a%';
+
+    
+    --middle charater:
+
+        -- select * from client_master where name like '%a%';
+
+
+    --string size:
+
+         -- select * from client_master where name like '____';
 
