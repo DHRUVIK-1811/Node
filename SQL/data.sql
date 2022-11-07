@@ -282,3 +282,147 @@
 
          -- select * from client_master where name like '____';
 
+
+
+-- ******************************************** Date : 17-10-2022 *******************************************
+
+
+
+
+
+-- ******************************************** Date : 18-10-2022 *******************************************
+
+-- 1. list the names of all clients having 'a' as the second letter in their names.
+
+        -->select * from client_master where name like '_a%';
+
+-- +----------+---------+--------+---------+-------------+--------+
+-- | Clientno | Name    | city   | pincode | state       | baldue |
+-- +----------+---------+--------+---------+-------------+--------+
+-- | C00002   | Vandana | Madras |  780001 | Tamilnadu   |      0 |
+-- | C00004   | Basu    | Bombay |  400056 | Maharashtra |      0 |
+-- | C00005   | Ravi    | Delhi  |  100001 |             |   2000 |
+-- +----------+---------+--------+---------+-------------+--------+
+
+
+
+-- 2. List the clients who stay in a city whose First letter is 'M'.
+
+        -->select * from client_master where city like 'm%';
+
+-- +----------+---------+--------+---------+-----------+--------+
+-- | Clientno | Name    | city   | pincode | state     | baldue |
+-- +----------+---------+--------+---------+-----------+--------+
+-- | C00002   | Vandana | Madras |  780001 | Tamilnadu |      0 |
+-- +----------+---------+--------+---------+-----------+--------+
+
+
+-- 3. List all clients who stay in 'Gujrat' or 'Tamilnadu'.
+
+        -->select * from client_master where state ='Gujrat' or state='Tamilnadu';
+
+-- +----------+---------+--------+---------+-----------+--------+
+-- | Clientno | Name    | city   | pincode | state     | baldue |
+-- +----------+---------+--------+---------+-----------+--------+
+-- | C00001   | Ivan    | Surat  |  400054 | Gujrat    |   5000 |
+-- | C00002   | Vandana | Madras |  780001 | Tamilnadu |      0 |
+-- +----------+---------+--------+---------+-----------+--------+
+
+
+-- 4. List all clients whose BalDue is greater than value 10000.
+
+        -->select * from client_master where baldue>10000;
+
+
+
+
+-- 5. List all information from the Sales_Order table for orders placed in the month of june.
+
+        -->select * from Sales_Order where month(delydate)=6;
+
+-- +---------+----------+------------+----------+-------------+----------+--------+------------+-------------+
+-- | orderno | Clientno | orderdate  | delyaddr | salesman_no | delytype | billyn | delydate   | orderstatus |
+-- +---------+----------+------------+----------+-------------+----------+--------+------------+-------------+
+-- | O19002  | C00002   | 2004-06-25 | Madras   | S00002      | P        | N      | 2002-06-27 | Cancelled   |
+-- +---------+----------+------------+----------+-------------+----------+--------+------------+-------------+
+
+
+-- 6. List the order information for ClientNo 'C00001' and 'C00002'.
+
+        -->select * from Sales_Order where Clientno in ('C00001','C00002');
+
+-- +---------+----------+------------+----------+-------------+----------+--------+------------+-------------+
+-- | orderno | Clientno | orderdate  | delyaddr | salesman_no | delytype | billyn | delydate   | orderstatus |
+-- +---------+----------+------------+----------+-------------+----------+--------+------------+-------------+
+-- | O19001  | C00001   | 2004-06-12 | Surat    | S00001      | F        | N      | 2002-07-20 | In Process  |
+-- | O19003  | C00001   | 2004-04-03 | Bombay   | S00001      | F        | Y      | 2002-04-07 | Fulfilled   |
+-- | O19002  | C00002   | 2004-06-25 | Madras   | S00002      | P        | N      | 2002-06-27 | Cancelled   |
+-- +---------+----------+------------+----------+-------------+----------+--------+------------+-------------+
+
+
+-- 7. List roducts whose selling price is greater than 500 and less than or equa to 750.
+
+        --select * from product_master where sellprice>500 and sellprice<=750;
+
+-- +-----------+---------------+---------------+--------------+-----------+-------------+-----------+-----------+
+-- | productno | description   | profitpercent | unitmeasured | qtyonhand | recorderlvl | sellprice | costprice |
+-- +-----------+---------------+---------------+--------------+-----------+-------------+-----------+-----------+
+-- | P00001    | 1.44floppies  |          5.00 | piece        |       100 |          20 |       525 |       500 |
+-- | P07865    | 1.22 floppies |          5.00 | piece        |       100 |          20 |       525 |       500 |
+-- +-----------+---------------+---------------+--------------+-----------+-------------+-----------+-----------+
+
+
+-- 8. List roducts whose selling price is more than 500.Calculate a new selling price as, original selling price*.15.
+--    Rename the new column in the output of the above query as new_price.
+
+        -->alter table product_master add column new_sellprice numeric(38);
+
+        -->update  product_master set new_sellprice=(sellprice*0.15)+sellprice where sellprice>500;
+
+-- +-----------+---------------+---------------+--------------+-----------+-------------+-----------+-----------+---------------+
+-- | productno | description   | profitpercent | unitmeasured | qtyonhand | recorderlvl | sellprice | costprice | new_sellprice |
+-- +-----------+---------------+---------------+--------------+-----------+-------------+-----------+-----------+---------------+
+-- | P00001    | 1.44floppies  |          5.00 | piece        |       100 |          20 |       525 |       500 |           604 |
+-- | P03453    | Monitors      |          6.00 | piece        |        10 |           3 |     12000 |     11200 |         13800 |
+-- | P06734    | Mouse         |          5.00 | piece        |        20 |           5 |      1050 |       500 |          1208 |
+-- | P07865    | 1.22 floppies |          5.00 | piece        |       100 |          20 |       525 |       500 |           604 |
+-- | P07965    | 540 HDD       |          4.00 | piece        |        10 |           3 |      8400 |      8000 |          9660 |
+-- | P87868    | Keyboards     |          2.00 | piece        |        10 |           3 |      3150 |      3050 |          3623 |
+-- | P87885    | CD Drive      |          2.50 | piece        |        10 |           3 |      5250 |      5100 |          6038 |
+-- | P87975    | 1.44 Drive    |          5.00 | piece        |        10 |           3 |      1050 |      1000 |          1208 |
+-- | P88865    | 1.22 Drive    |          5.00 | piece        |         2 |           3 |      1050 |      1000 |          1208 |
+-- +-----------+---------------+---------------+--------------+-----------+-------------+-----------+-----------+---------------+
+
+
+-- 9.List the names, city and state of clients who are not in the state of 'Maharashtra'.
+
+        -->select * from client_master where state not in ('Maharashtra');
+
+-- +----------+---------+--------+---------+-----------+--------+
+-- | Clientno | Name    | city   | pincode | state     | baldue |
+-- +----------+---------+--------+---------+-----------+--------+
+-- | C00001   | Ivan    | Surat  |  400054 | Gujrat    |   5000 |
+-- | C00002   | Vandana | Madras |  780001 | Tamilnadu |      0 |
+-- | C00005   | Ravi    | Delhi  |  100001 |           |   2000 |
+-- +----------+---------+--------+---------+-----------+--------+
+
+-- 10. Count the total number of orders.
+
+        -->select count(orderno) from Sales_Order;
+
+-- +----------------+
+-- | count(orderno) |
+-- +----------------+
+-- |              6 |
+-- +----------------+
+
+-- 11. Calculate the average price of all the products.
+
+        -->
+
+
+
+
+-- ******************************************** Date : 20-10-2022 *******************************************
+
+-- select date_format(from_days(datediff(now(),'2003-09-06')),"%y %m %d"),dayname('2003-09-06');
