@@ -220,3 +220,76 @@
             -- | DVD burner    |         18 |
             -- +---------------+------------+
 
+-- ****************task-2************************ Date : 08-11-2022 *******************************************
+
+
+    -- INNER JOIN
+
+-- select Manufacturers.code,Manufacturers.name,products.code,products.name,products.price,products.Manufacturer
+-- from Manufacturers
+-- inner join products
+-- on Manufacturers.code=products.Manufacturer;
+
+-- +------+-----------------+------+-----------------+-------+--------------+
+-- | code | name            | code | name            | price | Manufacturer |
+-- +------+-----------------+------+-----------------+-------+--------------+
+-- |    1 | Sony            |    5 | Monitor         |   240 |            1 |
+-- |    2 | Creative Labs   |    6 | DVD drive       |   180 |            2 |
+-- |    2 | Creative Labs   |    7 | CD drive        |    90 |            2 |
+-- |    2 | Creative Labs   |   10 | DVD burner      |   180 |            2 |
+-- |    2 | Creative Labs   |   11 | Loudspeakers    |    70 |            2 |
+-- |    3 | Hewlett-Packard |    8 | Laser Printer   |   270 |            3 |
+-- |    3 | Hewlett-Packard |    9 | Toner cartridge |    66 |            3 |
+-- |    4 | Iomega          |    3 | ZIP drive       |   150 |            4 |
+-- |    5 | Fujitsu         |    1 | Hard drive      |   240 |            5 |
+-- +------+-----------------+------+-----------------+-------+--------------+
+
+
+-- LEFT JION
+
+-- select Manufacturers.code,Manufacturers.name,products.code,products.name,products.price,products.Manufacturer
+-- from Manufacturers
+-- left join products
+-- on Manufacturers.code=products.Manufacturer;
+
+-- +------+-----------------+------+-----------------+-------+--------------+
+-- | code | name            | code | name            | price | Manufacturer |
+-- +------+-----------------+------+-----------------+-------+--------------+
+-- |    1 | Sony            |    5 | Monitor         |   240 |            1 |
+-- |    2 | Creative Labs   |    6 | DVD drive       |   180 |            2 |
+-- |    2 | Creative Labs   |    7 | CD drive        |    90 |            2 |
+-- |    2 | Creative Labs   |   10 | DVD burner      |   180 |            2 |
+-- |    2 | Creative Labs   |   11 | Loudspeakers    |    70 |            2 |
+-- |    3 | Hewlett-Packard |    8 | Laser Printer   |   270 |            3 |
+-- |    3 | Hewlett-Packard |    9 | Toner cartridge |    66 |            3 |
+-- |    4 | Iomega          |    3 | ZIP drive       |   150 |            4 |
+-- |    5 | Fujitsu         |    1 | Hard drive      |   240 |            5 |
+-- +------+-----------------+------+-----------------+-------+--------------+
+
+
+--RIGHT JOIN
+
+-- select Manufacturers.code,Manufacturers.name,products.code,products.name,products.price,products.Manufacturer
+-- from Manufacturers
+-- right join products
+-- on Manufacturers.code=products.Manufacturer;
+
+-- +------+-----------------+------+-----------------+-------+--------------+
+-- | code | name            | code | name            | price | Manufacturer |
+-- +------+-----------------+------+-----------------+-------+--------------+
+-- |    5 | Fujitsu         |    1 | Hard drive      |   240 |            5 |
+-- |    4 | Iomega          |    3 | ZIP drive       |   150 |            4 |
+-- |    1 | Sony            |    5 | Monitor         |   240 |            1 |
+-- |    2 | Creative Labs   |    6 | DVD drive       |   180 |            2 |
+-- |    2 | Creative Labs   |    7 | CD drive        |    90 |            2 |
+-- |    3 | Hewlett-Packard |    8 | Laser Printer   |   270 |            3 |
+-- |    3 | Hewlett-Packard |    9 | Toner cartridge |    66 |            3 |
+-- |    2 | Creative Labs   |   10 | DVD burner      |   180 |            2 |
+-- |    2 | Creative Labs   |   11 | Loudspeakers    |    70 |            2 |
+-- +------+-----------------+------+-----------------+-------+--------------+
+
+-- CROSS JOIN
+
+-- select *
+-- from Manufacturers
+-- cross join products;
