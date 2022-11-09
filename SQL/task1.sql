@@ -147,18 +147,96 @@
 
 -- 1.10 Select all the data from the products, including all the data for each product's manufacturer.
 
-    --->
+    --->select *
+    -- from Manufacturers
+    -- inner join products
+    -- on Manufacturers.code=products.Manufacturer;
+
+        -- +------+-----------------+------+-----------------+-------+--------------+
+        -- | code | name            | code | name            | price | Manufacturer |
+        -- +------+-----------------+------+-----------------+-------+--------------+
+        -- |    5 | Fujitsu         |    1 | Hard drive      |   240 |            5 |
+        -- |    4 | Iomega          |    3 | ZIP drive       |   150 |            4 |
+        -- |    1 | Sony            |    5 | Monitor         |   240 |            1 |
+        -- |    2 | Creative Labs   |    6 | DVD drive       |   180 |            2 |
+        -- |    2 | Creative Labs   |    7 | CD drive        |    90 |            2 |
+        -- |    3 | Hewlett-Packard |    8 | Laser Printer   |   270 |            3 |
+        -- |    3 | Hewlett-Packard |    9 | Toner cartridge |    66 |            3 |
+        -- |    2 | Creative Labs   |   10 | DVD burner      |   180 |            2 |
+        -- |    2 | Creative Labs   |   11 | Loudspeakers    |    70 |            2 |
+        -- +------+-----------------+------+-----------------+-------+--------------+
 
 -- 1.11 Select the product name, price, and manufacturer name of all the products.
 
-    --->
+    -- select a.name,a.price,b.name
+    -- from products a,manufacturers b
+    -- where a.manufacturer=b.code;
+
+            -- +-----------------+-----------------+-------+
+            -- | name            | name            | price |
+            -- +-----------------+-----------------+-------+
+            -- | Sony            | Monitor         |   240 |
+            -- | Creative Labs   | DVD drive       |   180 |
+            -- | Creative Labs   | CD drive        |    90 |
+            -- | Creative Labs   | DVD burner      |   180 |
+            -- | Creative Labs   | Loudspeakers    |    70 |
+            -- | Hewlett-Packard | Laser Printer   |   270 |
+            -- | Hewlett-Packard | Toner cartridge |    66 |
+            -- | Iomega          | ZIP drive       |   150 |
+            -- | Fujitsu         | Hard drive      |   240 |
+            -- +-----------------+-----------------+-------+
 
 -- 1.12 Select the average price of each manufacturer's products, showing only the manufacturer's code.
                                      
-    --->
+    -- select avg(a.price),a.manufacturer
+    -- from products a,manufacturers b
+    -- where a.manufacturer=b.code
+    -- group by b.name;
+
+        -- +--------------+--------------+
+        -- | avg(a.price) | manufacturer |
+        -- +--------------+--------------+
+        -- |          240 |            1 |
+        -- |          130 |            2 |
+        -- |          168 |            3 |
+        -- |          150 |            4 |
+        -- |          240 |            5 |
+        -- +--------------+--------------+
 
 -- 1.13 Select the average price of each manufacturer's products, showing the manufacturer's name.
+
+    -- select avg(a.price),b.name
+    -- from products a,manufacturers b
+    -- where a.manufacturer=b.code
+    -- group by b.name;
+
+        -- +--------------+-----------------+
+        -- | avg(a.price) | name            |
+        -- +--------------+-----------------+
+        -- |          240 | Sony            |
+        -- |          130 | Creative Labs   |
+        -- |          168 | Hewlett-Packard |
+        -- |          150 | Iomega          |
+        -- |          240 | Fujitsu         |
+        -- +--------------+-----------------+
+
 -- 1.14 Select the names of manufacturer whose products have an average price larger than or equal to $150.
+
+    --  select avg(a.price),b.name
+    -- from products a,manufacturers b
+    -- where a.manufacturer=b.code
+    -- group by b.name
+    -- having avg(a.price)>=150;
+
+        -- +--------------+-----------------+
+        -- | avg(a.price) | name            |
+        -- +--------------+-----------------+
+        -- |          240 | Sony            |
+        -- |          168 | Hewlett-Packard |
+        -- |          150 | Iomega          |
+        -- |          240 | Fujitsu         |
+        -- +--------------+-----------------+
+
 -- 1.15 Select the name and price of the cheapest product.
 
     ---> select name,price from products order by price limit 1;
@@ -169,9 +247,25 @@
             -- +-----------------+-------+
 
 -- 1.16 Select the name of each manufacturer along with the name and price of its most expensive product.
+
+--     select manufacturers.name,products.name,products.price
+-- from manufacturers,products
+-- where manufacturers.code=products.Manufacturer
+-- group by manufacturers.name
+-- having max(price)=(select max(price) from products);
+
+        -- +-----------------+---------------+-------+
+        -- | name            | name          | price |
+        -- +-----------------+---------------+-------+
+        -- | Hewlett-Packard | Laser Printer |   270 |
+        -- +-----------------+---------------+-------+
+
+
 -- 1.17 Add a new product: Loudspeakers, $70, manufacturer 2.
 
     --->insert into products values(11,'Loudspeakers',70,2);
+
+
 
 -- 1.18 Update the name of product 8 to "Laser Printer".
     
@@ -293,3 +387,5 @@
 -- select *
 -- from Manufacturers
 -- cross join products;
+
+
