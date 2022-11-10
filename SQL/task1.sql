@@ -389,3 +389,108 @@
 -- cross join products;
 
 
+-- **************************************** Date : 09-11-2022 *******************************************
+
+
+1. Exercises on using Having and Group By Clauses:
+
+    A. Print the description and total qty sold for each product.
+
+                select product_master.description,sum(sales_order_details.qtyordered)
+                from product_master,sales_order_details
+                where product_master.productno=sales_order_details.productno
+                group by sales_order_details.productno;
+
+                +---------------+-------------------------------------+
+                | description   | sum(sales_order_details.qtyordered) |
+                +---------------+-------------------------------------+
+                | 1.44floppies  |                                  34 |
+                | 540 HDD       |                                   3 |
+                | 1.22 floppies |                                   5 |
+                | Monitors      |                                   6 |
+                | Mouse         |                                   1 |
+                +---------------+-------------------------------------+
+
+    B. Find the value of each product sold.
+
+        select a.productno,b.description,b.sellprice
+        from sales_order_details a,product_master b
+        where a.productno=b.productno
+        group by a.productno;
+
+            +-----------+---------------+-----------+
+            | productno | description   | sellprice |
+            +-----------+---------------+-----------+
+            | P00001    | 1.44floppies  |       525 |
+            | P03453    | Monitors      |     12000 |
+            | P06734    | Mouse         |      1050 |
+            | P07865    | 1.22 floppies |       525 |
+            | P07965    | 540 HDD       |      8400 |
+            +-----------+---------------+-----------+
+
+
+    C.Calculate the average qty sold for each client that has a maximum order value of 15000.00.
+
+        select avg(qtyordered),sum(qtyordered*productrate),client_master.Clientno
+        from client_master
+        join sales_order on sales_order.Clientno=client_master.Clientno
+        join sales_order_details on sales_order_details.orderno=sales_order.orderno
+        group by client_master.Clientno
+        having sum(qtyordered*productrate)>=15000;    
+
+            +-----------------+-----------------------------+----------+
+            | avg(qtyordered) | sum(qtyordered*productrate) | Clientno |
+            +-----------------+-----------------------------+----------+
+            |          2.2000 |                    43500.00 | C00001   |
+            |          5.6667 |                    25200.00 | C00003   |
+            +-----------------+-----------------------------+----------+
+
+
+    D.Find out the total of all the billed orders for the month of June.
+
+        select  date_format(sales_order.orderdate,"%m"),sum(qtyordered)
+        from sales_order,sales_order_details
+        where sales_order.orderno=sales_order_details.orderno
+        and date_format(sales_order.orderdate,"%m")=6;
+        
+            +-----------------------------------------+-----------------+
+            | date_format(sales_order.orderdate,"%m") | sum(qtyordered) |
+            +-----------------------------------------+-----------------+
+            | 06                                      |              18 |
+            +-----------------------------------------+-----------------+
+
+       
+
+
+
+
+    A.  Find out the products, which have been sold to 'Ivan Bayross'.
+
+        select p.description,c.Name,d.productno 
+        from product_master p,client_master c,sales_order o,sales_order_details d
+        where c.Clientno=o.Clientno
+        and o.orderno=d.orderno
+        and d.productno=p.productno
+        group by d.productno
+        having c.Name='Ivan';
+        
+            +---------------+------+-----------+
+            | description   | Name | productno |
+            +---------------+------+-----------+
+            | 1.44floppies  | Ivan | P00001    |
+            | 540 HDD       | Ivan | P07965    |
+            | 1.22 floppies | Ivan | P07865    |
+            | Monitors      | Ivan | P03453    |
+            | Mouse         | Ivan | P06734    |
+            +---------------+------+-----------+
+
+
+            select c.name,p.description 
+            from client_master c 
+            join sales_order s1 
+            on c.clientno=s1.clientno 
+            join sales_order_details s2 
+            on s1.orderno=s2.orderno 
+            join product_master p 
+            on p.productno=s2.productno 
+            where c.name='Ivan';
